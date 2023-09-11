@@ -1,7 +1,7 @@
 import openai
 
 
-openai.api_key = "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"
+openai.api_key = "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"
 
 def BasicGeneration(userPrompt):
     completion = openai.ChatCompletion.create(
