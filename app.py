@@ -4,12 +4,21 @@ import requests
 import streamlit as st
 
 
+###     file operations
+def save_file(filepath, content):
+    with open(filepath, 'w', encoding='utf-8') as outfile:
+        outfile.write(content)
 
-openai.api_key = "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"
+
+def open_file(filepath):
+    with open(filepath, 'r', encoding='utf-8', errors='ignore') as infile:
+        return infile.read()
 
 def BasicGeneration(userPrompt):
     completion = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
+        model="gpt-4",
+        temperature=0,
+        max_tokens=2000,
         messages=[
             {"role": "user", "content": userPrompt}]
     )
@@ -54,6 +63,9 @@ def GetBitCoinPrices():
 
     
 if st.button('Analyze'):
+    openai.api_key = open_file('key_openai.txt').strip()
+
+
     with st.spinner('Getting Bitcoin Prices...'):
         bitcoinPrices = GetBitCoinPrices()
         st.success('Done!')

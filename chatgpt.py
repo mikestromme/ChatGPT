@@ -1,20 +1,27 @@
 import openai
 
-
-openai.api_key = "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"
+def open_file(filepath):
+    with open(filepath, 'r', encoding='utf-8', errors='ignore') as infile:
+        return infile.read()    
 
 def BasicGeneration(userPrompt):
     completion = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
+        model="gpt-4",
+        temperature=0,
+        max_tokens=2000,
         messages=[
             {"role": "user", "content": userPrompt}]
     )
     return completion.choices[0].message.content
 
 
-userPrompt = "What does it mean to be an optimist?"
+if __name__ == '__main__':
 
-response = BasicGeneration(userPrompt)
+    openai.api_key = open_file('key_openai.txt').strip()
 
-print(response)
+    userPrompt = "What does it mean to be an optimist?"
+
+    response = BasicGeneration(userPrompt)
+
+    print(response)
 
