@@ -2,9 +2,18 @@ import openai
 import os
 from dotenv import load_dotenv
 
-def open_file(filepath):
-    with open(filepath, 'r', encoding='utf-8', errors='ignore') as infile:
-        return infile.read()    
+load_dotenv()
+
+
+def main():
+    openai.api_key = os.getenv("OPENAI_API_KEY")
+
+    userPrompt = "In T-sql how do I select all records from a table?"
+
+    response = BasicGeneration(userPrompt)
+
+    print(response)
+
 
 def BasicGeneration(userPrompt):
     completion = openai.ChatCompletion.create(
@@ -18,12 +27,7 @@ def BasicGeneration(userPrompt):
 
 
 if __name__ == '__main__':
+    main()
 
-    openai.api_key = open_file('key_openai.txt').strip()
-
-    userPrompt = "What does it mean to be an optimist?"
-
-    response = BasicGeneration(userPrompt)
-
-    print(response)
+    
 
